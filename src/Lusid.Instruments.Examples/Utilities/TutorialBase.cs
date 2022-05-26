@@ -1,13 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Castle.Core.Internal;
 using Lusid.Sdk.Api;
 using Lusid.Sdk.Model;
-using Lusid.Sdk.Tests.Utilities;
+using Lusid.Sdk.Utilities;
 using NUnit.Framework;
 
-namespace Lusid.Sdk.Utilities
+namespace Lusid.Instruments.Examples.Utilities
 {
     public class TutorialBase
     {

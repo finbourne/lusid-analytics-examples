@@ -1,8 +1,6 @@
-using System;
-using System.IO;
 using Lusid.Sdk.Utilities;
 
-namespace Lusid.Sdk.Tests.Utilities
+namespace Lusid.Instruments.Examples.Utilities
 {
     public class TestLusidApiFactoryBuilder
     {

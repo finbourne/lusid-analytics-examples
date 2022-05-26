@@ -1,12 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Lusid.Instruments.Examples.Utilities;
 using Lusid.Sdk.Model;
-using Lusid.Sdk.Tests.Utilities;
 using LusidFeatures;
 using NUnit.Framework;
 
-namespace Lusid.Sdk.Tests.Tutorials.Instruments
+namespace Lusid.Instruments.Examples.Instruments
 {
     [TestFixture]
     public class EquityExamples: DemoInstrumentBase
