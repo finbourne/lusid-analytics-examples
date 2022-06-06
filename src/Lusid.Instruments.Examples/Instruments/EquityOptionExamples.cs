@@ -11,6 +11,12 @@ namespace Lusid.Instruments.Examples.Instruments
     public class EquityOptionExamples: DemoInstrumentBase
     {
         /// <inheritdoc />
+        protected override void CreateAndUpsertInstrumentResetsToLusid(string scope, ModelSelection.ModelEnum model, LusidInstrument instrument)
+        {
+            // nothing required.
+        }
+
+        /// <inheritdoc />
         protected override void CreateAndUpsertMarketDataToLusid(string scope, ModelSelection.ModelEnum model, LusidInstrument option)
         {
             // UPSERT quote for pricing of the equity option. This quote is understood to be the reset price.

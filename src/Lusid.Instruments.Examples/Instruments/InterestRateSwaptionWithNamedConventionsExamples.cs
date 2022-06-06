@@ -9,6 +9,12 @@ namespace Lusid.Instruments.Examples.Instruments
     public class InterestRateSwaptionWithNamedConventionsExamples: DemoInstrumentBase
     {
         /// <inheritdoc />
+        protected override void CreateAndUpsertInstrumentResetsToLusid(string scope, ModelSelection.ModelEnum model, LusidInstrument instrument)
+        {
+            // nothing required.
+        }
+
+        /// <inheritdoc />
         protected override void CreateAndUpsertMarketDataToLusid(string scope, ModelSelection.ModelEnum model, LusidInstrument instrument)
         {
             // The price of a swaption depends on its swap underlying which in turn
