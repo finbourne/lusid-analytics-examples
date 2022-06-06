@@ -11,7 +11,7 @@ namespace Lusid.Instruments.Examples.Instruments
     public class EquitySwapExamples: DemoInstrumentBase
     {
         /// <inheritdoc />
-        protected override void CreateAndUpsertMarketDataToLusid(string scope, ModelSelection.ModelEnum model, LusidInstrument instrument)
+        protected override void CreateAndUpsertInstrumentResetsToLusid(string scope, ModelSelection.ModelEnum model, LusidInstrument instrument)
         {
             // UPSERT quote for pricing of the equity swap. In particular we upsert a quote for the equity underlying.
             var equitySwap = (EquitySwap) instrument;
@@ -61,7 +61,13 @@ namespace Lusid.Instruments.Examples.Instruments
 
             var upsertResponse = _quotesApi.UpsertQuotes(scope, quotesToUpsert);
             Assert.That(upsertResponse.Failed.Count, Is.EqualTo(0));
-            Assert.That(upsertResponse.Values.Count, Is.EqualTo(quotesToUpsert.Count));
+            Assert.That(upsertResponse.Values.Count, Is.EqualTo(quotesToUpsert.Count));        }
+
+        /// <inheritdoc />
+        protected override void CreateAndUpsertMarketDataToLusid(string scope, ModelSelection.ModelEnum model, LusidInstrument instrument)
+        {
+            // Any required resets.
+            CreateAndUpsertInstrumentResetsToLusid(scope, model, instrument);
 
             // Upsert discounting curves
             if (model != ModelSelection.ModelEnum.ConstantTimeValueOfMoney)

@@ -10,6 +10,12 @@ namespace Lusid.Instruments.Examples.Instruments
     public class CreditDefaultSwapExamples: DemoInstrumentBase
     {
         /// <inheritdoc />
+        protected override void CreateAndUpsertInstrumentResetsToLusid(string scope, ModelSelection.ModelEnum model, LusidInstrument instrument)
+        {
+            // nothing required.
+        }
+
+        /// <inheritdoc />
         protected override void CreateAndUpsertMarketDataToLusid(string scope, ModelSelection.ModelEnum model, LusidInstrument instrument)
         {
             // POPULATE with required market data for valuation of the instruments
