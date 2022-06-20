@@ -145,7 +145,6 @@ namespace Lusid.Instruments.Examples.Instruments
             var (instrumentID, portfolioCode) = CreatePortfolioAndInstrument(scope, fxForward);
             
             // UPSERT FX Forward to portfolio and populating stores with required market data - use a constant FX rate USD/JPY = 150.
-            var effectiveAt = windowStart;
             var upsertFxRateRequestReq = TestDataUtilities.BuildFxRateRequest("USD", "JPY", 150, windowStart, windowEnd, true);
             
             var upsertQuoteResponse = _quotesApi.UpsertQuotes(scope, upsertFxRateRequestReq);
@@ -158,7 +157,7 @@ namespace Lusid.Instruments.Examples.Instruments
             var allFxFwdCashFlows = _transactionPortfoliosApi.GetUpsertablePortfolioCashFlows(
                     scope,
                     portfolioCode,
-                    effectiveAt,
+                    TestDataUtilities.EffectiveAt,
                     windowStart,
                     windowEnd,
                     null,
