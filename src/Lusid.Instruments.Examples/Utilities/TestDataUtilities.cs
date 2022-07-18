@@ -573,7 +573,11 @@ namespace Lusid.Instruments.Examples.Utilities
         private static readonly List<LusidInstrument.InstrumentTypeEnum> InstrumentThatCanHaveNegativePv = new List<LusidInstrument.InstrumentTypeEnum>
             {
                 LusidInstrument.InstrumentTypeEnum.InterestRateSwap,
-                LusidInstrument.InstrumentTypeEnum.EquitySwap
+                 LusidInstrument.InstrumentTypeEnum.EquitySwap,
+                 LusidInstrument.InstrumentTypeEnum.FxSwap,
+                 LusidInstrument.InstrumentTypeEnum.FxForward,
+                 LusidInstrument.InstrumentTypeEnum.CreditDefaultSwap,
+                 LusidInstrument.InstrumentTypeEnum.CdsIndex,
             };
 
         // CHECK we got non-null results and simple pricing checks e.g. positive for relevant instruments
