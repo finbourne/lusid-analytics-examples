@@ -98,7 +98,7 @@ namespace Lusid.Instruments.Examples.Utilities
 
         internal static LusidInstrument CreateExampleFxOption(
             bool isDeliveryNotCash = true,
-            string example = "Vanilla"
+            string example = "VanillaEuropean"
         )
         {
 
