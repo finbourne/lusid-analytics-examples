@@ -1,5 +1,6 @@
 using System.Runtime.Serialization;
 using Lusid.Sdk.Model;
+using Barrier = Lusid.Sdk.Model.Barrier;
 
 namespace Lusid.Instruments.Examples.Utilities
 {
@@ -83,18 +84,195 @@ namespace Lusid.Instruments.Examples.Utilities
                 instrumentType: LusidInstrument.InstrumentTypeEnum.ForwardRateAgreement);
         }
 
-        internal static LusidInstrument CreateExampleFxOption(bool isDeliveryNotCash = true)
-            => new FxOption(
-                strike: 130,
-                domCcy: "USD",
-                fgnCcy: "JPY",
-                startDate: TestDataUtilities.StartDate,
-                optionMaturityDate: TestDataUtilities.StartDate.AddYears(1),
-                optionSettlementDate: TestDataUtilities.StartDate.AddYears(1).AddDays(2),
-                isCallNotPut: true,
-                isDeliveryNotCash: isDeliveryNotCash,
-                instrumentType: LusidInstrument.InstrumentTypeEnum.FxOption
-            );
+        enum FxOptionExamples {
+            VanillaEuropean,
+            VanillaAmerican,
+            DigitalPayoff,
+            Barrier,
+            DoubleBarrier,
+            Touch,
+            Notouch,
+            DoubleTouch,
+            DoubleNotouch
+        };
+
+        internal static LusidInstrument CreateExampleFxOption(
+            bool isDeliveryNotCash = true,
+            string example = "Vanilla"
+        )
+        {
+
+            if (example == FxOptionExamples.VanillaEuropean.ToString())
+            {
+                return new FxOption(
+                    strike: 130,
+                    domCcy: "USD",
+                    fgnCcy: "JPY",
+                    startDate: TestDataUtilities.StartDate,
+                    optionMaturityDate: TestDataUtilities.StartDate.AddYears(1),
+                    optionSettlementDate: TestDataUtilities.StartDate.AddYears(1).AddDays(2),
+                    isCallNotPut: true,
+                    isDeliveryNotCash: isDeliveryNotCash,
+                    instrumentType: LusidInstrument.InstrumentTypeEnum.FxOption
+                );
+            }
+            
+            if (example == FxOptionExamples.VanillaAmerican.ToString())
+            {
+                return new FxOption(
+                    strike: 130,
+                    domCcy: "USD",
+                    fgnCcy: "JPY",
+                    exerciseType:"American",
+                    startDate: TestDataUtilities.StartDate,
+                    optionMaturityDate: TestDataUtilities.StartDate.AddYears(1),
+                    optionSettlementDate: TestDataUtilities.StartDate.AddYears(1).AddDays(2),
+                    isCallNotPut: true,
+                    isDeliveryNotCash: isDeliveryNotCash,
+                    instrumentType: LusidInstrument.InstrumentTypeEnum.FxOption
+                );
+            }
+            
+            if (example == FxOptionExamples.DigitalPayoff.ToString())
+            {
+                return new FxOption(
+                    strike: 130,
+                    domCcy: "USD",
+                    fgnCcy: "JPY",
+                    startDate: TestDataUtilities.StartDate,
+                    optionMaturityDate: TestDataUtilities.StartDate.AddYears(1),
+                    optionSettlementDate: TestDataUtilities.StartDate.AddYears(1).AddDays(2),
+                    isCallNotPut: true,
+                    isDeliveryNotCash: isDeliveryNotCash,
+                    instrumentType: LusidInstrument.InstrumentTypeEnum.FxOption,
+                    isPayoffDigital:true
+                );
+            }
+
+            if (example == FxOptionExamples.Barrier.ToString())
+            {
+                return new FxOption(
+                    strike: 130,
+                    domCcy: "USD",
+                    fgnCcy: "JPY",
+                    startDate: TestDataUtilities.StartDate,
+                    optionMaturityDate: TestDataUtilities.StartDate.AddYears(1),
+                    optionSettlementDate: TestDataUtilities.StartDate.AddYears(1).AddDays(2),
+                    isCallNotPut: true,
+                    isDeliveryNotCash: isDeliveryNotCash,
+                    instrumentType: LusidInstrument.InstrumentTypeEnum.FxOption,
+                    barriers:new List<Barrier>()
+                    {
+                        new Barrier(direction:"Up",level:140,type:"Knockout",monitoring:"European")
+                    }
+                );
+            }
+
+            if (example == FxOptionExamples.DoubleBarrier.ToString())
+            {
+                return new FxOption(
+                    strike: 130,
+                    domCcy: "USD",
+                    fgnCcy: "JPY",
+                    startDate: TestDataUtilities.StartDate,
+                    optionMaturityDate: TestDataUtilities.StartDate.AddYears(1),
+                    optionSettlementDate: TestDataUtilities.StartDate.AddYears(1).AddDays(2),
+                    isCallNotPut: true,
+                    isDeliveryNotCash: isDeliveryNotCash,
+                    instrumentType: LusidInstrument.InstrumentTypeEnum.FxOption,
+                    barriers:new List<Barrier>()
+                    {
+                        new Barrier(direction:"Down",level:140,type:"Knockin",monitoring:"European"),
+                        new Barrier(direction:"Down",level:120,type:"Knockout",monitoring:"European")
+                    }
+                );
+            }
+
+            if (example == FxOptionExamples.Touch.ToString())
+            {
+                return new FxOption(
+                    domCcy: "USD",
+                    fgnCcy: "JPY",
+                    startDate: TestDataUtilities.StartDate,
+                    optionMaturityDate: TestDataUtilities.StartDate.AddYears(1),
+                    optionSettlementDate: TestDataUtilities.StartDate.AddYears(1).AddDays(2),
+                    isCallNotPut: true,
+                    isDeliveryNotCash: isDeliveryNotCash,
+                    instrumentType: LusidInstrument.InstrumentTypeEnum.FxOption,
+                    touches:new List<Touch>()
+                    {
+                        new Touch(direction:"Down",level:120,type:"Touch",monitoring:"American")
+                    },
+                    payoutStyle:"Deferred"
+                );
+            }
+
+            if (example == FxOptionExamples.DoubleTouch.ToString())
+            {
+                return new FxOption(
+                    domCcy: "USD",
+                    fgnCcy: "JPY",
+                    startDate: TestDataUtilities.StartDate,
+                    optionMaturityDate: TestDataUtilities.StartDate.AddYears(1),
+                    optionSettlementDate: TestDataUtilities.StartDate.AddYears(1).AddDays(2),
+                    isCallNotPut: true,
+                    isDeliveryNotCash: isDeliveryNotCash,
+                    instrumentType: LusidInstrument.InstrumentTypeEnum.FxOption,
+                    touches:new List<Touch>()
+                    {
+                        new Touch(direction:"Down",level:120,type:"Touch",monitoring:"American"),
+                        new Touch(direction:"Up",level:140,type:"Touch",monitoring:"American")
+                    },
+                    payoutStyle:"Deferred"
+                );
+            }
+
+            if (example == FxOptionExamples.Notouch.ToString())
+            {
+                return new FxOption(
+                    domCcy: "USD",
+                    fgnCcy: "JPY",
+                    startDate: TestDataUtilities.StartDate,
+                    optionMaturityDate: TestDataUtilities.StartDate.AddYears(1),
+                    optionSettlementDate: TestDataUtilities.StartDate.AddYears(1).AddDays(2),
+                    isCallNotPut: true,
+                    isDeliveryNotCash: isDeliveryNotCash,
+                    instrumentType: LusidInstrument.InstrumentTypeEnum.FxOption,
+                    touches:new List<Touch>()
+                    {
+                        new Touch(direction:"Down",level:120,type:"NoTouch",monitoring:"American"),
+                    },
+                    payoutStyle:"Deferred"
+                );
+            }
+
+            if (example == FxOptionExamples.DoubleNotouch.ToString())
+            {
+                return new FxOption(
+                    domCcy: "USD",
+                    fgnCcy: "JPY",
+                    startDate: TestDataUtilities.StartDate,
+                    optionMaturityDate: TestDataUtilities.StartDate.AddYears(1),
+                    optionSettlementDate: TestDataUtilities.StartDate.AddYears(1).AddDays(2),
+                    isCallNotPut: true,
+                    isDeliveryNotCash: isDeliveryNotCash,
+                    instrumentType: LusidInstrument.InstrumentTypeEnum.FxOption,
+                    touches:new List<Touch>()
+                    {
+                        new Touch(direction:"Down",level:120,type:"NoTouch",monitoring:"American"),
+                        new Touch(direction:"Up",level:140,type:"NoTouch",monitoring:"American"),
+                    },
+                    payoutStyle:"Immediate"
+                );
+            }
+
+            string allExamples = "";
+            foreach (var item in Enum.GetNames(typeof (FxOptionExamples)))
+            {
+                allExamples += item + ",";
+            }
+            throw new ArgumentException($"FxOption example '{example}' is not found. Possible examples are: [{allExamples}]");
+        }
 
         internal static LusidInstrument CreateExampleEquityOption(bool isCashSettled = false)
             => new EquityOption(
