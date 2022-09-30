@@ -71,19 +71,11 @@ namespace Lusid.Instruments.Examples.Instruments
         }
 
         [LusidFeature("F5-15")]
-        [TestCase("VanillaEuropean")]
-        [TestCase("VanillaAmerican")]
-        [TestCase("DigitalPayoff")]
-        [TestCase("Barrier")]
-        [TestCase("DoubleBarrier")]
-        [TestCase("Touch")]
-        [TestCase("Notouch")]
-        [TestCase("DoubleTouch")]
-        [TestCase("DoubleNotouch")]
-        public void FxOptionCreationAndUpsertionExample(string exampleName)
+        [Test]
+        public void FxOptionCreationAndUpsertionExample()
         {
             // CREATE an Fx-Option (that can then be upserted into LUSID)
-            var fxOption = (FxOption) InstrumentExamples.CreateExampleFxOption(example:exampleName);
+            var fxOption = (FxOption) InstrumentExamples.CreateExampleFxOption();
             
             // ASSERT that it was created
             Assert.That(fxOption, Is.Not.Null);
