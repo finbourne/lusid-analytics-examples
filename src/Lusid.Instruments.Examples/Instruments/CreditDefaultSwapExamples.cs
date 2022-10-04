@@ -239,7 +239,7 @@ namespace Lusid.Instruments.Examples.Instruments
             Assert.That(upsertCmdResponse.Failed, Is.Empty);
 
             // CREATE a inline valuation request with an example CDS instrument
-            var pvKey = "Holding/default/PV";
+            var pvKey = "Valuation/PV";
             var valRequest = new InlineValuationRequest(
                 recipeId: new ResourceId(testScope, recipeName),
                 metrics: new List<AggregateSpec>
