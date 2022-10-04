@@ -364,7 +364,7 @@ namespace Lusid.Instruments.Examples.Portfolio
 
             // DEFINE the response we want
             const string valuationDateKey = "Analytic/default/ValuationDate";
-            const string pvKey = "Holding/default/PV";
+            const string pvKey = "Valuation/PV";
             var valuationSpec = new List<AggregateSpec>
             {
                 new AggregateSpec(valuationDateKey, AggregateSpec.OpEnum.Value),
