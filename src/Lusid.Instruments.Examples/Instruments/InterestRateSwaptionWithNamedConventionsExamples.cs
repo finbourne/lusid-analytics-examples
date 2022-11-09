@@ -140,7 +140,7 @@ namespace Lusid.Instruments.Examples.Instruments
         {
             var swaption = InstrumentExamples.CreateExampleInterestRateSwaptionWithNamedConventions();
             UpsertNamedConventionsToLusid();
-            CallLusidInlineValuationEndpoint(swaption, model);
+            CallLusidInlineValuationEndpoint(swaption, model, "USD");
         }
 
         private void UpsertNamedConventionsToLusid()

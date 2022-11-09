@@ -205,7 +205,7 @@ namespace Lusid.Instruments.Examples.Instruments
         public void InterestRateSwapInlineValuationExample(ModelSelection.ModelEnum model)
         {
             var irs = InstrumentExamples.CreateExampleInterestRateSwap(InstrumentExamples.InterestRateSwapType.Vanilla);
-            CallLusidInlineValuationEndpoint(irs, model);
+            CallLusidInlineValuationEndpoint(irs, model, "USD");
         }
 
         [LusidFeature("F22-49")]
@@ -214,7 +214,7 @@ namespace Lusid.Instruments.Examples.Instruments
         public void InterestRateSwapCDORInlineValuationExample(ModelSelection.ModelEnum model)
         {
             var irs = InstrumentExamples.CreateExampleInterestRateSwap(InstrumentExamples.InterestRateSwapType.CDOR);
-            CallLusidInlineValuationEndpoint(irs, model);
+            CallLusidInlineValuationEndpoint(irs, model, "CAD");
         }
 
         [LusidFeature("F22-24")]

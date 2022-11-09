@@ -137,7 +137,7 @@ namespace Lusid.Instruments.Examples.Instruments
         public void InterestRateSwaptionInlineValuationExample(ModelSelection.ModelEnum model)
         {
             var swaption = InstrumentExamples.CreateExampleInterestRateSwaption();
-            CallLusidInlineValuationEndpoint(swaption, model);
+            CallLusidInlineValuationEndpoint(swaption, model, "USD");
         }
 
         /// <summary>

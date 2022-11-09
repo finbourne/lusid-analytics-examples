@@ -163,7 +163,7 @@ namespace Lusid.Instruments.Examples.Instruments
         {
             var irs = InstrumentExamples.CreateSwapByNamedConventions();
             UpsertNamedConventionsToLusid();
-            CallLusidInlineValuationEndpoint(irs, model);
+            CallLusidInlineValuationEndpoint(irs, model, "USD");
         }
 
         [LusidFeature("F22-38")]

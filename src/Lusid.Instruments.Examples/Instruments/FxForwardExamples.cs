@@ -109,7 +109,7 @@ namespace Lusid.Instruments.Examples.Instruments
         public void FxForwardInlineValuationExample(ModelSelection.ModelEnum model, bool isNdf)
         {
             var fxForward = InstrumentExamples.CreateExampleFxForward(isNdf);
-            CallLusidInlineValuationEndpoint(fxForward, model);
+            CallLusidInlineValuationEndpoint(fxForward, model, fxForward.DomCcy);
         }
         
         [LusidFeature("F22-17")]

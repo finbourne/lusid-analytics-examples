@@ -177,7 +177,7 @@ namespace Lusid.Instruments.Examples.Instruments
         public void InterestRateSwapInlineValuationExample(InstrumentExamples.InterestRateSwapType interestRateSwapType)
         {
             var irs = InstrumentExamples.CreateExampleInterestRateSwap(interestRateSwapType);
-            CallLusidInlineValuationEndpoint(irs, ModelSelection.ModelEnum.Discounting);
+            CallLusidInlineValuationEndpoint(irs, ModelSelection.ModelEnum.Discounting, "USD");
         }
 
         [LusidFeature("F22-54")]

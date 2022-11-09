@@ -109,7 +109,7 @@ namespace Lusid.Instruments.Examples.Instruments
         public void CfdInlineValuationExample(ModelSelection.ModelEnum model)
         {
             var cfd = InstrumentExamples.CreateExampleCfd();
-            CallLusidInlineValuationEndpoint(cfd, model);
+            CallLusidInlineValuationEndpoint(cfd, model, cfd.UnderlyingCcy);
         }
 
         [TestCase(ModelSelection.ModelEnum.Discounting)]
