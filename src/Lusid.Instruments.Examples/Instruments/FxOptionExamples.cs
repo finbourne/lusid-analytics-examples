@@ -191,7 +191,7 @@ namespace Lusid.Instruments.Examples.Instruments
             var effectiveAt = option.OptionSettlementDate;
             var upsertFxRatesNearSettlement = TestDataUtilities.BuildFxRateRequest(
                     "USD", "JPY", 150, 
-                effectiveAt.AddDays(-5), effectiveAt.AddDays(5), useConstantFxRate: true);
+                effectiveAt.AddDays(-10), effectiveAt.AddDays(10), useConstantFxRate: true);
             var upsertFxRatesResponse = _quotesApi.UpsertQuotes(scope, upsertFxRatesNearSettlement);
             ValidateQuoteUpsert(upsertFxRatesResponse, upsertFxRatesNearSettlement.Count);
 
