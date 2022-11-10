@@ -108,7 +108,7 @@ namespace Lusid.Instruments.Examples.Instruments
         public void TermDepositInlineValuationExample(ModelSelection.ModelEnum model)
         {
             var termDeposit = InstrumentExamples.CreateExampleTermDeposit(TestDataUtilities.EffectiveAt);
-            CallLusidInlineValuationEndpoint(termDeposit, model);
+            CallLusidInlineValuationEndpoint(termDeposit, model, termDeposit.FlowConvention.Currency);
         }
 
         [LusidFeature("F22-34")]

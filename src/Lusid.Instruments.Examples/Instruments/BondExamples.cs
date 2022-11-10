@@ -184,7 +184,7 @@ namespace Lusid.Instruments.Examples.Instruments
         {
             // CREATE a Bond to be priced by LUSID
             var bond = isZeroCouponBond ? InstrumentExamples.CreateExampleZeroCouponBond() : InstrumentExamples.CreateExampleBond();
-            CallLusidInlineValuationEndpoint(bond, modelName);
+            CallLusidInlineValuationEndpoint(bond, modelName, bond.DomCcy);
         }
 
         [TestCase(ModelSelection.ModelEnum.ConstantTimeValueOfMoney,false)]

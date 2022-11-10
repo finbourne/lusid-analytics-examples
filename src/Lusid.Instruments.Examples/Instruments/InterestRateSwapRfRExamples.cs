@@ -162,15 +162,15 @@ namespace Lusid.Instruments.Examples.Instruments
         }
        
         [LusidFeature("F22-47")]
-        [TestCase(InstrumentExamples.InterestRateSwapType.SOFR)]
-        [TestCase(InstrumentExamples.InterestRateSwapType.ESTR)]
-        [TestCase(InstrumentExamples.InterestRateSwapType.SONIA)]
-        [TestCase(InstrumentExamples.InterestRateSwapType.TONA)]
-        [TestCase(InstrumentExamples.InterestRateSwapType.SARON)]
-        public void InterestRateSwapRfRInlineValuationExample(InstrumentExamples.InterestRateSwapType rfr)
+        [TestCase(InstrumentExamples.InterestRateSwapType.SOFR, "USD")]
+        [TestCase(InstrumentExamples.InterestRateSwapType.ESTR, "EUR")]
+        [TestCase(InstrumentExamples.InterestRateSwapType.SONIA, "GBP")]
+        [TestCase(InstrumentExamples.InterestRateSwapType.TONA, "JPY")]
+        [TestCase(InstrumentExamples.InterestRateSwapType.SARON, "CHF")]
+        public void InterestRateSwapRfRInlineValuationExample(InstrumentExamples.InterestRateSwapType rfr, string ccy)
         {
             var irs = InstrumentExamples.CreateExampleInterestRateSwap(rfr);
-            CallLusidInlineValuationEndpoint(irs, ModelSelection.ModelEnum.Discounting);
+            CallLusidInlineValuationEndpoint(irs, ModelSelection.ModelEnum.Discounting, ccy);
         }
         
         [LusidFeature("F22-48")]

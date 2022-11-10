@@ -44,7 +44,7 @@ namespace Lusid.Instruments.Examples.Utilities
         
         internal void ValidateUpsertInstrumentResponse(UpsertInstrumentsResponse response)
         {
-            Assert.That(response.Failed.Count, Is.EqualTo(0));
+            Assert.That(response.Failed, Is.Empty);
             Assert.That(response.Values.Count, Is.EqualTo(1));
         }
         

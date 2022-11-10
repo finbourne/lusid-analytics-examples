@@ -95,7 +95,8 @@ namespace Lusid.Sdk.Tests.Tutorials.MarketData
                     new ResourceId(recipeScope, recipeName),
                     valuationSchedule: new ValuationSchedule(effectiveAt: testNow.ToString("o")),
                     metrics: TestDataUtilities.ValuationSpec,
-                    instruments: new List<WeightedInstrument> {new WeightedInstrument(1m, "myOption", instrument)}
+                    instruments: new List<WeightedInstrument> {new WeightedInstrument(1m, "myOption", instrument)},
+                    reportCurrency:"USD"
                 );
 
                 // GET aggregation results

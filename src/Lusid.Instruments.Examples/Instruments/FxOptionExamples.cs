@@ -136,7 +136,7 @@ namespace Lusid.Instruments.Examples.Instruments
         public void FxOptionInlineValuationExample(ModelSelection.ModelEnum model, bool isDeliveryNotCash)
         {
             var fxOption = InstrumentExamples.CreateExampleFxOption(isDeliveryNotCash);
-            CallLusidInlineValuationEndpoint(fxOption, model);
+            CallLusidInlineValuationEndpoint(fxOption, model, fxOption.DomCcy);
         }
 
         [LusidFeature("F22-21")]

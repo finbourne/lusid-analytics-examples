@@ -182,7 +182,7 @@ namespace Lusid.Instruments.Examples.Utilities
         /// In particular, the instrument is also not persisted into any portfolio nor database, it gets deleted at the end.
         /// This endpoint makes it easy to experiment with pricing with less overhead.
         /// </summary>
-        internal void CallLusidInlineValuationEndpoint(LusidInstrument instrument, ModelSelection.ModelEnum model)
+        internal void CallLusidInlineValuationEndpoint(LusidInstrument instrument, ModelSelection.ModelEnum model, string reportCurrency)
         {
             var scope = Guid.NewGuid().ToString();
 
@@ -202,7 +202,8 @@ namespace Lusid.Instruments.Examples.Utilities
                 metrics: TestDataUtilities.ValuationSpec,
                 sort: new List<OrderBySpec> {new OrderBySpec(TestDataUtilities.ValuationDateKey, OrderBySpec.SortOrderEnum.Ascending)},
                 valuationSchedule: valuationSchedule,
-                instruments: instruments);
+                instruments: instruments,
+                reportCurrency: reportCurrency);
 
             // CALL LUSID's inline GetValuationOfWeightedInstruments endpoint
             var result = _aggregationApi.GetValuationOfWeightedInstruments(inlineValuationRequest);

@@ -123,9 +123,10 @@ namespace Lusid.Instruments.Examples.Portfolio
         public void InlineMultiDateValuationOfABond()
         {
             // CREATE a bond instrument inline
+            var bond = InstrumentExamples.CreateExampleBond();
             var instruments = new List<WeightedInstrument>
             {
-                new WeightedInstrument(1, "bond", InstrumentExamples.CreateExampleBond())
+                new WeightedInstrument(1, "bond", bond)
             };
 
             // CREATE inline valuation request asking for instruments PV using a "default" recipe
@@ -136,7 +137,9 @@ namespace Lusid.Instruments.Examples.Portfolio
                 metrics: TestDataUtilities.ValuationSpec,
                 sort: new List<OrderBySpec> {new OrderBySpec(TestDataUtilities.ValuationDateKey, OrderBySpec.SortOrderEnum.Ascending)},
                 valuationSchedule: valuationSchedule,
-                instruments: instruments);
+                instruments: instruments,
+                reportCurrency:bond.DomCcy
+                );
 
             // Values the bond for each day in between 2020-02-16 and 2020-02-23 (inclusive)
             var valuation = _apiFactory.Api<IAggregationApi>().GetValuationOfWeightedInstruments(inlineValuationRequest);
@@ -186,8 +189,9 @@ namespace Lusid.Instruments.Examples.Portfolio
                 metrics: TestDataUtilities.ValuationSpec,
                 sort: new List<OrderBySpec> {new OrderBySpec(TestDataUtilities.ValuationDateKey, OrderBySpec.SortOrderEnum.Ascending)},
                 valuationSchedule: valuationSchedule,
-                instruments: instruments);
-
+                instruments: instruments,
+                reportCurrency: "USD"
+            );
             // CALL valuation and check the PVs makes sense.
             var valuation = _apiFactory.Api<IAggregationApi>().GetValuationOfWeightedInstruments(inlineValuationRequest);
             Assert.That(valuation, Is.Not.Null);
@@ -247,14 +251,18 @@ namespace Lusid.Instruments.Examples.Portfolio
                 metrics: TestDataUtilities.ValuationSpec,
                 sort: new List<OrderBySpec> {new OrderBySpec(TestDataUtilities.ValuationDateKey, OrderBySpec.SortOrderEnum.Ascending)},
                 valuationSchedule: valuationSchedule,
-                instruments: instruments);
+                instruments: instruments,
+                reportCurrency:"USD"
+                );
 
             var constantTimeValueOfMoneyValuationRequest = new InlineValuationRequest(
                 recipeId: new ResourceId(scope, constantTimeValueOfMoneyRecipeCode),
                 metrics: TestDataUtilities.ValuationSpec,
                 sort: new List<OrderBySpec> {new OrderBySpec(TestDataUtilities.ValuationDateKey, OrderBySpec.SortOrderEnum.Ascending)},
                 valuationSchedule: valuationSchedule,
-                instruments: instruments);
+                instruments: instruments,
+                reportCurrency:"USD"
+                );
 
             // CALL valuation for Fx-Forward with each recipe
             var discountingValuation = _apiFactory.Api<IAggregationApi>()

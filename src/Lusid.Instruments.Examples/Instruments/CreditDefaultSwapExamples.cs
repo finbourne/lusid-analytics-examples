@@ -161,7 +161,7 @@ namespace Lusid.Instruments.Examples.Instruments
         public void CreditDefaultSwapInlineValuationExample(ModelSelection.ModelEnum model)
         {
             var cds = InstrumentExamples.CreateExampleCreditDefaultSwap();
-            CallLusidInlineValuationEndpoint(cds, model);
+            CallLusidInlineValuationEndpoint(cds, model, cds.FlowConventions.Currency);
         }
 
         [LusidFeature("F22-31")]

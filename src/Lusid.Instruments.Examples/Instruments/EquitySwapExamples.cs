@@ -161,7 +161,7 @@ namespace Lusid.Instruments.Examples.Instruments
         public void EquitySwapInlineValuationExample(ModelSelection.ModelEnum model, bool multiCoupon)
         {
             var equitySwap = InstrumentExamples.CreateExampleEquitySwap(multiCoupon);
-            CallLusidInlineValuationEndpoint(equitySwap, model);
+            CallLusidInlineValuationEndpoint(equitySwap, model, equitySwap.EquityFlowConventions.Currency);
         }
 
         [LusidFeature("F22-42")]

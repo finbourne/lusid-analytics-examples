@@ -58,7 +58,7 @@ namespace Lusid.Instruments.Examples.Utilities
             };
         }
 
-        internal static LusidInstrument CreateExampleFxForward(bool isNdf = true)
+        internal static FxForward CreateExampleFxForward(bool isNdf = true)
             => new FxForward(
                 domAmount: 1m,
                 fgnAmount: -123m,
@@ -72,7 +72,7 @@ namespace Lusid.Instruments.Examples.Utilities
                 instrumentType: LusidInstrument.InstrumentTypeEnum.FxForward
             );
 
-        internal static LusidInstrument CreateExampleForwardRateAgreement()
+        internal static ForwardRateAgreement CreateExampleForwardRateAgreement()
         {
             return new ForwardRateAgreement(
                 startDate: TestDataUtilities.StartDate,
@@ -96,7 +96,7 @@ namespace Lusid.Instruments.Examples.Utilities
             DoubleNotouch
         };
 
-        internal static LusidInstrument CreateExampleFxOption(
+        internal static FxOption CreateExampleFxOption(
             bool isDeliveryNotCash = true,
             string example = "VanillaEuropean"
         )
@@ -274,7 +274,7 @@ namespace Lusid.Instruments.Examples.Utilities
             throw new ArgumentException($"FxOption example '{example}' is not found. Possible examples are: [{allExamples}]");
         }
 
-        internal static LusidInstrument CreateExampleEquityOption(bool isCashSettled = false)
+        internal static EquityOption CreateExampleEquityOption(bool isCashSettled = false)
             => new EquityOption(
                 startDate: TestDataUtilities.StartDate,
                 optionMaturityDate: TestDataUtilities.StartDate.AddYears(1),
@@ -290,7 +290,7 @@ namespace Lusid.Instruments.Examples.Utilities
                 instrumentType: LusidInstrument.InstrumentTypeEnum.EquityOption
             );
 
-        internal static LusidInstrument CreateExampleSimpleInstrument()
+        internal static SimpleInstrument CreateExampleSimpleInstrument()
             => new SimpleInstrument(
                 instrumentType: LusidInstrument.InstrumentTypeEnum.SimpleInstrument,
                 domCcy: "USD",
@@ -298,7 +298,7 @@ namespace Lusid.Instruments.Examples.Utilities
                 simpleInstrumentType: "Equity"
             );
 
-        internal static LusidInstrument CreateExampleEquity()
+        internal static Equity CreateExampleEquity()
             => new Equity(
                 instrumentType: LusidInstrument.InstrumentTypeEnum.Equity,
                 domCcy: "USD",
@@ -316,7 +316,7 @@ namespace Lusid.Instruments.Examples.Utilities
                 settleDays: settleDays,
                 resetDays: resetDays);
 
-        internal static LusidInstrument CreateExampleBond()
+        internal static Bond CreateExampleBond()
             => new Bond(
                 startDate: TestDataUtilities.StartDate,
                 maturityDate: TestDataUtilities.StartDate.AddYears(6),
@@ -328,7 +328,7 @@ namespace Lusid.Instruments.Examples.Utilities
                 instrumentType: LusidInstrument.InstrumentTypeEnum.Bond
             );
 
-        internal static LusidInstrument CreateExampleCfd()
+        internal static ContractForDifference CreateExampleCfd()
             => new ContractForDifference(
                 startDate: TestDataUtilities.StartDate,
                 maturityDate: TestDataUtilities.StartDate.AddYears(6),
@@ -342,7 +342,7 @@ namespace Lusid.Instruments.Examples.Utilities
                 instrumentType: LusidInstrument.InstrumentTypeEnum.ContractForDifference
             );
 
-        internal static LusidInstrument CreateExampleZeroCouponBond()
+        internal static Bond CreateExampleZeroCouponBond()
             => new Bond(
                 startDate: TestDataUtilities.StartDate,
                 maturityDate: TestDataUtilities.StartDate.AddYears(6),
@@ -718,7 +718,7 @@ namespace Lusid.Instruments.Examples.Utilities
                 settleDays: 0,
                 resetDays: 0);
 
-        internal static LusidInstrument CreateExampleCreditDefaultSwap()
+        internal static CreditDefaultSwap CreateExampleCreditDefaultSwap()
             => new CreditDefaultSwap(
                 ticker: "XYZCorp",
                 startDate: TestDataUtilities.StartDate,
@@ -735,7 +735,7 @@ namespace Lusid.Instruments.Examples.Utilities
                 instrumentType: LusidInstrument.InstrumentTypeEnum.CreditDefaultSwap
             );
 
-        internal static LusidInstrument CreateExampleTermDeposit(DateTimeOffset startDate)
+        internal static TermDeposit CreateExampleTermDeposit(DateTimeOffset startDate)
             => new TermDeposit(
                 startDate: TestDataUtilities.StartDate,
                 maturityDate: TestDataUtilities.StartDate.AddYears(1),

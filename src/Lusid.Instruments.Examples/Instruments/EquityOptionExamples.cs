@@ -167,7 +167,7 @@ namespace Lusid.Instruments.Examples.Instruments
         public void EquityOptionInlineValuationExample(ModelSelection.ModelEnum model, bool isCashSettled)
         {
             var equityOption = InstrumentExamples.CreateExampleEquityOption(isCashSettled);
-            CallLusidInlineValuationEndpoint(equityOption, model);
+            CallLusidInlineValuationEndpoint(equityOption, model, equityOption.DomCcy);
         }
 
         [LusidFeature("F22-30")]
@@ -464,7 +464,8 @@ namespace Lusid.Instruments.Examples.Instruments
                 metrics: requestedKeys,
                 sort: new List<OrderBySpec> {new OrderBySpec(TestDataUtilities.ValuationDateKey, OrderBySpec.SortOrderEnum.Ascending)},
                 valuationSchedule: valuationSchedule,
-                instruments: instruments);
+                instruments: instruments,
+                reportCurrency:instrument.DomCcy);
 
             // CALL LUSID's inline GetValuationOfWeightedInstruments endpoint
             var result = _aggregationApi.GetValuationOfWeightedInstruments(inlineValuationRequest);
