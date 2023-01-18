@@ -70,6 +70,53 @@ namespace Lusid.Instruments.Examples.Instruments
             Assert.That(cashflows.Count, Is.EqualTo(expectedNumberOfCashflows));
         }
 
+        [LusidFeature("???")]
+        [Test]
+        public void CHANGEME()
+        {
+            var fxOption = InstrumentExamples.CreateExampleFxOption();
+            
+            var scope = Guid.NewGuid().ToString();
+
+            // CREATE portfolio and add instrument to the portfolio
+            var (instrumentID, portfolioCode) = CreatePortfolioAndInstrument(scope, fxOption);
+
+            // UPSERT market data sufficient to price the instrument depending on the model.
+            CreateAndUpsertMarketDataToLusid(scope, ModelSelection.ModelEnum.BlackScholes, fxOption);
+
+            // CREATE recipe to price the portfolio with
+            var recipeCode = CreateAndUpsertRecipe(scope, ModelSelection.ModelEnum.BlackScholes);
+
+            // CREATE valuation request
+            var valuationRequest = TestDataUtilities.CreateValuationRequest(
+                scope, 
+                portfolioCode, 
+                recipeCode, 
+                TestDataUtilities.EffectiveAt, 
+                additionalRequestsKeys: new List<string>()
+                {
+                    "Valuation/Diagnostics/ImpliedVolatility",
+                    "Valuation/Diagnostics/ForwardRate",
+                    "Valuation/Diagnostics/VolatilityType",
+                    "Valuation/Diagnostics/TimeToMaturity"
+                });
+
+            // CALL valuation and get the results.
+            var result = _aggregationApi.GetValuation(valuationRequest);
+            var resultDictionary = result.Data.First();
+            
+            // Verify diagnostics results are what is expected.
+            Assert.That(resultDictionary.Count(kv => kv.Key.Contains("Valuation/Diagnostics")), Is.EqualTo(4)); // Ensuring we obtained 4 addresses for diagnostics as requested above.
+            Assert.That(resultDictionary["Valuation/Diagnostics/TimeToMaturity"], Is.EqualTo(1.0000074855902388).Within(1e-8));
+            Assert.That(resultDictionary["Valuation/Diagnostics/VolatilityType"], Is.EqualTo("LogNormal"));
+            Assert.That(resultDictionary["Valuation/Diagnostics/ForwardRate"], Is.EqualTo(150).Within(1e-8));
+            Assert.That(resultDictionary["Valuation/Diagnostics/ImpliedVolatility"], Is.EqualTo(0.2).Within(1e-8));
+
+            // CLEAN up
+            _recipeApi.DeleteConfigurationRecipe(scope, recipeCode);
+            _portfoliosApi.DeletePortfolio(scope, portfolioCode);
+        }
+
         [LusidFeature("F5-15")]
         [Test]
         public void FxOptionCreationAndUpsertionExample()
