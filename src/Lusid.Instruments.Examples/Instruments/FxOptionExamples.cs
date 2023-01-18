@@ -72,7 +72,7 @@ namespace Lusid.Instruments.Examples.Instruments
 
         [LusidFeature("???")]
         [Test]
-        public void CHANGEME()
+        public void DiagnosticsForFxOption()
         {
             var fxOption = InstrumentExamples.CreateExampleFxOption();
             

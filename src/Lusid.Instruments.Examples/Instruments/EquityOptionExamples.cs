@@ -291,7 +291,7 @@ namespace Lusid.Instruments.Examples.Instruments
 
         [LusidFeature("???")]
         [Test]
-        public void CHANGEME()
+        public void DiagnosticsForEquityOption()
         {
             var instrument = InstrumentExamples.CreateExampleEquityOption(isCashSettled: true);
             var scope = Guid.NewGuid().ToString();
