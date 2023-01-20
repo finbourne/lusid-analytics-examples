@@ -70,7 +70,7 @@ namespace Lusid.Instruments.Examples.Instruments
             Assert.That(cashflows.Count, Is.EqualTo(expectedNumberOfCashflows));
         }
 
-        [LusidFeature("???")]
+        [LusidFeature("F22-56")]
         [Test]
         public void DiagnosticsForFxOption()
         {

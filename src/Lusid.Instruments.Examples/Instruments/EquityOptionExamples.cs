@@ -289,7 +289,7 @@ namespace Lusid.Instruments.Examples.Instruments
             _portfoliosApi.DeletePortfolio(scope, portfolioCode);
         }
 
-        [LusidFeature("???")]
+        [LusidFeature("F22-57")]
         [Test]
         public void DiagnosticsForEquityOption()
         {
