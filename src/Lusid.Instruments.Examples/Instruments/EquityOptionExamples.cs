@@ -289,6 +289,58 @@ namespace Lusid.Instruments.Examples.Instruments
             _portfoliosApi.DeletePortfolio(scope, portfolioCode);
         }
 
+        [LusidFeature("F22-57")]
+        [Test]
+        public void DiagnosticsForEquityOption()
+        {
+            var instrument = InstrumentExamples.CreateExampleEquityOption(isCashSettled: true);
+            var scope = Guid.NewGuid().ToString();
+            var model = ModelSelection.ModelEnum.BlackScholes;
+
+            // CREATE recipe to price the portfolio with
+            var recipeCode = CreateAndUpsertRecipe(scope, model);
+
+            // UPSERT market data sufficient to price the instrument
+            CreateAndUpsertMarketDataToLusid(scope, model, instrument);
+
+            // CREATE valuation request
+            var valuationSchedule = new ValuationSchedule(effectiveAt: TestDataUtilities.EffectiveAt);
+            var instruments = new List<WeightedInstrument> {new WeightedInstrument(1, "some-holding-identifier", instrument)};
+
+            // CONSTRUCT valuation request
+            var diagnosticKeys = new List<AggregateSpec>
+            {
+                new AggregateSpec("Valuation/Diagnostics/ImpliedVolatility", AggregateSpec.OpEnum.Value),
+                new AggregateSpec("Valuation/Diagnostics/ForwardRate", AggregateSpec.OpEnum.Value),
+                new AggregateSpec("Valuation/Diagnostics/VolatilityType", AggregateSpec.OpEnum.Value),
+                new AggregateSpec("Valuation/Diagnostics/TimeToMaturity", AggregateSpec.OpEnum.Value),
+            };
+            var baseKeys = TestDataUtilities.ValuationSpec;
+            var requestedKeys = baseKeys.Concat(diagnosticKeys).ToList();
+            
+            var inlineValuationRequest = new InlineValuationRequest(
+                recipeId: new ResourceId(scope, recipeCode),
+                metrics: requestedKeys,
+                sort: new List<OrderBySpec> {new OrderBySpec(TestDataUtilities.ValuationDateKey, OrderBySpec.SortOrderEnum.Ascending)},
+                valuationSchedule: valuationSchedule,
+                instruments: instruments,
+                reportCurrency:instrument.DomCcy);
+
+            // CALL LUSID's inline GetValuationOfWeightedInstruments endpoint
+            var result = _aggregationApi.GetValuationOfWeightedInstruments(inlineValuationRequest);
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Data.Count, Is.GreaterThanOrEqualTo(1));
+
+            // CHECK values are populated for the diagnostic keys
+            var resultDict = result.Data[0];
+            Assert.That(resultDict["Valuation/Diagnostics/ImpliedVolatility"], Is.EqualTo(0.2).Within(1e-8));
+            Assert.That(resultDict["Valuation/Diagnostics/ForwardRate"], Is.EqualTo(139.12279636420254).Within(1e-8));
+            Assert.That(resultDict["Valuation/Diagnostics/VolatilityType"], Is.EqualTo("LogNormal"));
+            Assert.That(resultDict["Valuation/Diagnostics/TimeToMaturity"], Is.EqualTo(1.0000074855902388).Within(1e-8));
+
+            _recipeApi.DeleteConfigurationRecipe(scope, recipeCode);
+        }
+
         /// <summary>
         /// Lifecycle management of equity option
         /// For both cash and physically settled equity option, we expected conservation
