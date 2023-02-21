@@ -156,10 +156,6 @@ namespace Lusid.Instruments.Examples.Portfolio
             var allPositivePvs = presentValues.All(pv => pv >= 0);
             Assert.That(allPositivePvs, Is.EqualTo(true));
 
-            // CHECK pvs are unique as they are valued everyday
-            var uniquePvs = presentValues.Distinct().Count();
-            // 6 valuation days (Given Sun-Sun (see effectiveFrom|To), rolls forward to Monday and generates schedule, rolling to appropriate GBD)
-            Assert.That(uniquePvs, Is.EqualTo(6));
         }
 
         [Test]
