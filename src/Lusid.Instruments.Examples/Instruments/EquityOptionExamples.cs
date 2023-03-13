@@ -500,7 +500,7 @@ namespace Lusid.Instruments.Examples.Instruments
             var thetaKey = "Valuation/Risk/Theta";
             var gammaKey = "Valuation/Risk/Gamma";
             var vannaKey = "Valuation/Risk/Vanna";
-            var vommaKey = "Valuation/Risk/Vomma";
+            var volgaKey = "Valuation/Risk/Volga";
             var sensitivityKeys = new List<AggregateSpec>
             {
                 new AggregateSpec(deltaKey, AggregateSpec.OpEnum.Value),
@@ -508,7 +508,7 @@ namespace Lusid.Instruments.Examples.Instruments
                 new AggregateSpec(thetaKey, AggregateSpec.OpEnum.Value),
                 new AggregateSpec(gammaKey, AggregateSpec.OpEnum.Value),
                 new AggregateSpec(vannaKey, AggregateSpec.OpEnum.Value),
-                new AggregateSpec(vommaKey, AggregateSpec.OpEnum.Value)
+                new AggregateSpec(volgaKey, AggregateSpec.OpEnum.Value)
             };
             var requestedKeys = baseKeys.Concat(sensitivityKeys).ToList();
             var inlineValuationRequest = new InlineValuationRequest(
@@ -531,7 +531,7 @@ namespace Lusid.Instruments.Examples.Instruments
             Assert.That(resultDict[thetaKey], Is.LessThan(0));
             Assert.That(resultDict[gammaKey], Is.Not.EqualTo(0));
             Assert.That(resultDict[vannaKey], Is.Not.EqualTo(0));
-            Assert.That(resultDict[vommaKey], Is.Not.EqualTo(0));
+            Assert.That(resultDict[volgaKey], Is.Not.EqualTo(0));
 
             _recipeApi.DeleteConfigurationRecipe(scope, recipeCode);
         }
