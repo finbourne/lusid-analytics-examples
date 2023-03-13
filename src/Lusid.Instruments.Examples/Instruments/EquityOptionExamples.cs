@@ -500,7 +500,7 @@ namespace Lusid.Instruments.Examples.Instruments
             var thetaKey = "Valuation/Risk/Theta";
             var gammaKey = "Valuation/Risk/Gamma";
             var vannaKey = "Valuation/Risk/Vanna";
-            var vommaKey = "Valuation/Risk/Vomma";
+            var vommaKey = "Valuation/Risk/Volga";
             var sensitivityKeys = new List<AggregateSpec>
             {
                 new AggregateSpec(deltaKey, AggregateSpec.OpEnum.Value),
