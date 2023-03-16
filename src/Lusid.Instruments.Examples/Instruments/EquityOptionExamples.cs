@@ -495,7 +495,7 @@ namespace Lusid.Instruments.Examples.Instruments
 
             // CONSTRUCT valuation request
             var baseKeys = TestDataUtilities.ValuationSpec;
-            var deltaKey = "Valuation/Risk/SpotDelta";
+            var deltaKey = "Valuation/Delta";
             var vegaKey = "Valuation/Risk/Vega";
             var thetaKey = "Valuation/Risk/Theta";
             var gammaKey = "Valuation/Risk/Gamma";
