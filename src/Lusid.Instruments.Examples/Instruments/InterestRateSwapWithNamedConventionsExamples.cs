@@ -169,9 +169,10 @@ namespace Lusid.Instruments.Examples.Instruments
         [LusidFeature("F22-38")]
         [TestCase(ModelSelection.ModelEnum.ConstantTimeValueOfMoney)]
         [TestCase(ModelSelection.ModelEnum.Discounting)]
-        public void InterestRateSwaptionPortfolioCashFlowsExample(ModelSelection.ModelEnum model)
+        public void InterestRateSwapWithNamedConventionsPortfolioCashFlowsExample(ModelSelection.ModelEnum model)
         {
             var irs = InstrumentExamples.CreateSwapByNamedConventions(TestDataUtilities.StartDate.AddYears(1));
+            UpsertNamedConventionsToLusid();
             CallLusidGetPortfolioCashFlowsEndpoint(irs, model);
         }
     }
