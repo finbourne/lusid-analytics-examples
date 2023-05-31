@@ -42,13 +42,13 @@ namespace Lusid.Instruments.Examples.Instruments
                 code: portfolioCode,
                 effectiveAt: TestDataUtilities.EffectiveAt,
                 windowStart: termDeposit.StartDate.AddDays(-3),
-                windowEnd: termDeposit.MaturityDate.AddDays(3),
+                windowEnd: termDeposit.StartDate.AddMonths(6).AddDays(3),
                 asAt:null,
                 filter:null,
                 recipeIdScope: scope,
                 recipeIdCode: recipeCode).Values;
             
-            Assert.That(cashflows.Count, Is.EqualTo(1));
+            Assert.That(cashflows.Count, Is.EqualTo(3));
         }
 
         [LusidFeature("F5-8")]

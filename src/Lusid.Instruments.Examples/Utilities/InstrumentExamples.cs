@@ -737,9 +737,10 @@ namespace Lusid.Instruments.Examples.Utilities
 
         internal static TermDeposit CreateExampleTermDeposit(DateTimeOffset startDate)
             => new TermDeposit(
-                startDate: TestDataUtilities.StartDate,
-                maturityDate: TestDataUtilities.StartDate.AddYears(1),
+                startDate: TestDataUtilities.StartDate.AddDays(2),
+                maturityDate: TestDataUtilities.StartDate.AddMonths(6).AddDays(2),
                 contractSize: 1_000_000m,
+                rate: 0.05m,
                 flowConvention: CreateExampleFlowConventions("USD", "6M", "MF", "Act365", 2, 2),
                 instrumentType: LusidInstrument.InstrumentTypeEnum.TermDeposit
             );
