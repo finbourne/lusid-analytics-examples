@@ -996,7 +996,7 @@ namespace Lusid.Instruments.Examples.Utilities
                 new LevelStep(TestDataUtilities.StartDate.AddYears(2), 50m),
                 new LevelStep(TestDataUtilities.StartDate.AddYears(4), 30m),
             };
-            var stepSchedule = new StepSchedule(stepScheduleType: "Notional", levelType: "Absolute", steps: steps, scheduleType: Schedule.ScheduleTypeEnum.StepSchedule);
+            var stepSchedule = new StepSchedule(stepScheduleType: "Notional", levelType: "Absolute", steps: steps, scheduleType: Schedule.ScheduleTypeEnum.Step);
 
             // create a vanilla swap
             var swap = CreateExampleInterestRateSwap(InterestRateSwapType.Vanilla);
