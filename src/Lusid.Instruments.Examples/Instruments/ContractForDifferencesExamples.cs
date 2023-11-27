@@ -76,7 +76,7 @@ namespace Lusid.Instruments.Examples.Instruments
             ValidateUpsertInstrumentResponse(upsertResponse);
 
             // CAN NOW QUERY FROM LUSID
-            var getResponse = _instrumentsApi.GetInstruments("ClientInternal", new List<string> { uniqueId }, upsertResponse.Values.First().Value.Version.AsAtDate);
+            var getResponse = _instrumentsApi.GetInstruments("ClientInternal", new List<string> { uniqueId }, upsertResponse.Values.First().Value._Version.AsAtDate);
             ValidateInstrumentResponse(getResponse, uniqueId);
 
             var retrieved = getResponse.Values.First().Value.InstrumentDefinition;

@@ -1,14 +1,14 @@
 using Castle.Core.Internal;
 using Lusid.Sdk.Api;
 using Lusid.Sdk.Model;
-using Lusid.Sdk.Utilities;
+using Lusid.Sdk.Extensions;
 using NUnit.Framework;
 
 namespace Lusid.Instruments.Examples.Utilities
 {
     public class TutorialBase
     {
-        internal readonly ILusidApiFactory _apiFactory;
+        internal readonly IApiFactory _apiFactory;
         internal readonly ITransactionPortfoliosApi _transactionPortfoliosApi;
         internal readonly IInstrumentsApi _instrumentsApi;
         internal readonly IQuotesApi _quotesApi;
