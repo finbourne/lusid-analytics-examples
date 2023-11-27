@@ -8,14 +8,14 @@ namespace Lusid.Instruments.Examples.Utilities
         {
             return File.Exists(secretsFile)
                 ? ApiFactoryBuilder.Build(secretsFile)
-                : ApiFactoryBuilder.Build(null);
+                : ApiFactoryBuilder.BuildFromEnvironmentVariables();
         }
-        
+
         public static ApiConfiguration CreateApiConfiguration(string secretsFile)
         {
             return File.Exists(secretsFile)
                 ? ApiConfigurationBuilder.Build(secretsFile)
-                : ApiConfigurationBuilder.Build(null);
+                : ApiConfigurationBuilder.BuildFromEnvironmentVariables();
         }
     }
 }
