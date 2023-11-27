@@ -207,7 +207,7 @@ namespace Lusid.Instruments.Examples.Instruments
             );
 
             // UPSERT the configuration recipe
-            var upsertRecipeRequest = new UpsertRecipeRequest(recipe, null);
+            var upsertRecipeRequest = new UpsertRecipeRequest(recipe);
             var upsertRecipeResponse = _recipeApi.UpsertConfigurationRecipe(upsertRecipeRequest);
             Assert.That(upsertRecipeResponse.Value, Is.Not.Null);
 
