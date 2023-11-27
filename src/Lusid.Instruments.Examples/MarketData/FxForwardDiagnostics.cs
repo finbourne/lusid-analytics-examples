@@ -1,7 +1,7 @@
 using System;
 using Lusid.Sdk.Api;
 using Lusid.Sdk.Model;
-using Lusid.Sdk.Utilities;
+using Lusid.Sdk.Extensions;
 using LusidFeatures;
 using NUnit.Framework;
 
@@ -21,7 +21,7 @@ namespace Lusid.Sdk.Tests.Tutorials.MarketData
             // In the second model, the key stores the fx forward rate that was specified to be used in the valuation
             // In the third model, the key stores the fx forward rate that was interpolated from the fx forward curve
 
-            var apiFactory = LusidApiFactoryBuilder.Build("secrets.json");
+            var apiFactory = ApiFactoryBuilder.Build("secrets.json");
 
             IQuotesApi quotesApi = apiFactory.Api<IQuotesApi>();
             IComplexMarketDataApi complexMarketDataApi = apiFactory.Api<IComplexMarketDataApi>();

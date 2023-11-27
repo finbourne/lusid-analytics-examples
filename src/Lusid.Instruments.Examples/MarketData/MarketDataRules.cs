@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Lusid.Instruments.Examples.Utilities;
 using Lusid.Sdk.Model;
-using Lusid.Sdk.Utilities;
+using Lusid.Sdk.Extensions;
 using LusidFeatures;
 using NUnit.Framework;
 

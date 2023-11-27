@@ -1,39 +1,39 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
 
-    <ItemGroup>
-      <PackageReference Include="Castle.Core" Version="4.4.0" />
-      <PackageReference Include="Lusid.Sdk.Preview" Version="(*,2)" />
-      <PackageReference Include="LusidFeatures" Version="0.1.5" />
-      <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
-      <PackageReference Include="NUnit" Version="3.13.3" />
-      <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Castle.Core" Version="4.4.0" />
+    <PackageReference Include="Lusid.Sdk" Version="(2.*-*,3)" />
+    <PackageReference Include="LusidFeatures" Version="0.1.5" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
+    <PackageReference Include="NUnit" Version="3.13.3" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
+  </ItemGroup>
 
-    <ItemGroup>
-      <None Update="secrets.json">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Instruments\ExampleMarketData\IsdaYieldCurve_USD_20200605.xml">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Instruments\ExampleMarketData\JPYOIS.json">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Instruments\ExampleMarketData\USD6M.json">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Instruments\ExampleMarketData\USDOIS.json">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Instruments\ExampleMarketData\XYZCorp.json">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-    </ItemGroup>
+  <ItemGroup>
+    <None Update="secrets.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Instruments\ExampleMarketData\IsdaYieldCurve_USD_20200605.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Instruments\ExampleMarketData\JPYOIS.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Instruments\ExampleMarketData\USD6M.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Instruments\ExampleMarketData\USDOIS.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Instruments\ExampleMarketData\XYZCorp.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 
 </Project>
