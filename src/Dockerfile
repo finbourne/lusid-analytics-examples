@@ -7,4 +7,4 @@ COPY Instruments.sln /usr/src/
 COPY Lusid.Instruments.Examples/Lusid.Instruments.Examples.csproj /usr/src/Lusid.Instruments.Examples/
 RUN dotnet restore Instruments.sln
 
-ENTRYPOINT env && dotnet list Instruments.sln package && dotnet test Instruments.sln -l "console;verbosity=detailed"
+ENTRYPOINT dotnet list Instruments.sln package && dotnet test Instruments.sln -l "console;verbosity=detailed"
