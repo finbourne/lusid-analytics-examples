@@ -89,7 +89,7 @@ namespace Lusid.Instruments.Examples.Portfolio
             var expectedCashFlows = isNdf
                 ? new List<(DateTimeOffset? PaymentDate, decimal? Amount, string Currency)>
                 {
-                    (fxForward.MaturityDate, fxForward.DomAmount, fxForward.DomCcy)
+                    (fxForward.MaturityDate, 0, fxForward.DomCcy)
                 }
                 : new List<(DateTimeOffset? PaymentDate, decimal? Amount, string Currency)> 
                 {
@@ -199,7 +199,7 @@ namespace Lusid.Instruments.Examples.Portfolio
             var expectedCashFlows = isNdf
                 ? new List<CurrencyAndAmount>
                     {
-                        new CurrencyAndAmount(fxForward.DomAmount, fxForward.DomCcy)
+                        new CurrencyAndAmount(0, fxForward.DomCcy)
                     }
                 : new List<CurrencyAndAmount> 
                     {
