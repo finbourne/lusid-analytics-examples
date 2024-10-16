@@ -182,15 +182,15 @@ namespace Lusid.Instruments.Examples.Instruments
         {
             var equitySwap = InstrumentExamples.CreateExampleEquitySwap();
 
-            // CREATE portfolio and add instrument to the portfolio
+            // CREATE recipe to price the portfolio with
             var scope = Guid.NewGuid().ToString();
-            var (instrumentID, portfolioCode) = CreatePortfolioAndInstrument(scope, equitySwap);
+            var recipeCode = CreateAndUpsertRecipe(scope, model);
+
+            // CREATE portfolio and add instrument to the portfolio
+            var (instrumentID, portfolioCode) = CreatePortfolioAndInstrument(scope, equitySwap, recipeCode);
 
             // UPSERT EquitySwap to portfolio and populating stores with required market data.
             CreateAndUpsertMarketDataToLusid(scope, model, equitySwap);
-
-            // CREATE recipe to price the portfolio with
-            var recipeCode = CreateAndUpsertRecipe(scope, model);
 
             // CREATE valuation request for this portfolio consisting of the instrument
             var accruedInterestKey = "Valuation/Accrued";
@@ -238,15 +238,15 @@ namespace Lusid.Instruments.Examples.Instruments
             var windowStart = equitySwap.StartDate.AddMonths(-1);
             var windowEnd = equitySwap.MaturityDate.AddMonths(1);
 
-            // CREATE portfolio and add instrument to the portfolio
+            // CREATE recipe to price the portfolio with
             var scope = Guid.NewGuid().ToString();
-            var (instrumentID, portfolioCode) = CreatePortfolioAndInstrument(scope, equitySwap);
+            var recipeCode = CreateAndUpsertRecipe(scope, model, windowValuationOnInstrumentStartEnd: true);
+
+            // CREATE portfolio and add instrument to the portfolio
+            var (instrumentID, portfolioCode) = CreatePortfolioAndInstrument(scope, equitySwap, recipeCode);
 
             // UPSERT EquitySwap to portfolio and populating stores with required market data.
             CreateAndUpsertMarketDataToLusid(scope, model, equitySwap);
-
-            // CREATE recipe to price the portfolio with
-            var recipeCode = CreateAndUpsertRecipe(scope, model, windowValuationOnInstrumentStartEnd: true);
 
             // GET all upsertable cashflows (transactions) for the EquitySwap.
             // EffectiveAt after maturity so we have all the data.

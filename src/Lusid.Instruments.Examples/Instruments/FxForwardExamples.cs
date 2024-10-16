@@ -139,19 +139,19 @@ namespace Lusid.Instruments.Examples.Instruments
             // CREATE wide enough window to pick up all cashflows for the FX Forward
             var windowStart = fxForward.StartDate.AddMonths(-1);
             var windowEnd = fxForward.MaturityDate.AddMonths(1);
-            
-            // CREATE portfolio and add instrument to the portfolio
+
+            // CREATE recipe to price the portfolio with
             var scope = Guid.NewGuid().ToString();
-            var (instrumentID, portfolioCode) = CreatePortfolioAndInstrument(scope, fxForward);
+            var recipeCode = CreateAndUpsertRecipe(scope, model, windowValuationOnInstrumentStartEnd: true);
+
+            // CREATE portfolio and add instrument to the portfolio
+            var (instrumentID, portfolioCode) = CreatePortfolioAndInstrument(scope, fxForward, recipeCode);
             
             // UPSERT FX Forward to portfolio and populating stores with required market data - use a constant FX rate USD/JPY = 150.
             var upsertFxRateRequestReq = TestDataUtilities.BuildFxRateRequest("USD", "JPY", 150, windowStart, windowEnd, true);
             
             var upsertQuoteResponse = _quotesApi.UpsertQuotes(scope, upsertFxRateRequestReq);
             ValidateQuoteUpsert(upsertQuoteResponse, upsertFxRateRequestReq.Count);
-
-            // CREATE recipe to price the portfolio with
-            var recipeCode = CreateAndUpsertRecipe(scope, model, windowValuationOnInstrumentStartEnd: true);
 
             // GET all upsertable cashflows (transactions) for the FX Forward
             var allFxFwdCashFlows = _transactionPortfoliosApi.GetUpsertablePortfolioCashFlows(

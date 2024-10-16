@@ -242,15 +242,15 @@ namespace Lusid.Instruments.Examples.Instruments
             var windowStart = interestRateSwap.StartDate.AddMonths(-1);
             var windowEnd = interestRateSwap.MaturityDate.AddMonths(1);
 
-            // CREATE portfolio and add instrument to the portfolio
+            // CREATE recipe to price the portfolio with
             var scope = Guid.NewGuid().ToString();
-            var (instrumentID, portfolioCode) = CreatePortfolioAndInstrument(scope, interestRateSwap);
+            var recipeCode = CreateAndUpsertRecipe(scope, model, windowValuationOnInstrumentStartEnd: true);
+
+            // CREATE portfolio and add instrument to the portfolio
+            var (instrumentID, portfolioCode) = CreatePortfolioAndInstrument(scope, interestRateSwap, recipeCode);
 
             // Populate stores with required market data.
             CreateAndUpsertMarketDataToLusid(scope, model, interestRateSwap);
-
-            // CREATE recipe to price the portfolio with
-            var recipeCode = CreateAndUpsertRecipe(scope, model, windowValuationOnInstrumentStartEnd: true);
 
             // We expect that the PV of the InterestRateSwap should be zero after the maturity.
             // CREATE valuation request for this portfolio consisting of the InterestRateSwap,

@@ -30,14 +30,14 @@ namespace Lusid.Instruments.Examples.Utilities
         {
             var scope = Guid.NewGuid().ToString();
 
+            // UPSERT recipe - this is the configuration used in pricing
+            var recipeCode = CreateAndUpsertRecipe(scope, model);
+
             // CREATE portfolio and book instrument to the portfolio
-            var (instrumentID, portfolioCode) = CreatePortfolioAndInstrument(scope, instrument);
+            var (instrumentID, portfolioCode) = CreatePortfolioAndInstrument(scope, instrument, recipeCode);
 
             // UPSERT sufficient market data to get cashflow for the instrument
             CreateAndUpsertMarketDataToLusid(scope, model, instrument);
-
-            // UPSERT recipe - this is the configuration used in pricing
-            var recipeCode = CreateAndUpsertRecipe(scope, model);
 
             GetAndValidatePortfolioCashFlows(instrument, scope, portfolioCode, recipeCode, instrumentID);
 
@@ -68,10 +68,11 @@ namespace Lusid.Instruments.Examples.Utilities
         /// Utility method to create a new portfolio that contains one transaction against the instrument.
         /// </summary>
         /// <returns>Returns a tuple of instrumentId and portfolio code</returns>
-        protected (string, string) CreatePortfolioAndInstrument(string scope, LusidInstrument instrument)
+        protected (string, string) CreatePortfolioAndInstrument(string scope, LusidInstrument instrument, string recipeCode)
         {
             // CREATE portfolio
-            var portfolioRequest = TestDataUtilities.BuildTransactionPortfolioRequest(TestDataUtilities.EffectiveAt);
+            var recipeId = new ResourceId(scope, recipeCode);
+            var portfolioRequest = TestDataUtilities.BuildTransactionPortfolioRequest(TestDataUtilities.EffectiveAt, recipeId);
             var portfolio = _transactionPortfoliosApi.CreatePortfolio(scope, portfolioRequest);
             Assert.That(portfolio?.Id.Code, Is.EqualTo(portfolioRequest.Code));
 
@@ -153,14 +154,14 @@ namespace Lusid.Instruments.Examples.Utilities
         {
             var scope = Guid.NewGuid().ToString();
 
+            // CREATE recipe to price the portfolio with
+            var recipeCode = CreateAndUpsertRecipe(scope, model);
+
             // CREATE portfolio and add instrument to the portfolio
-            var (instrumentID, portfolioCode) = CreatePortfolioAndInstrument(scope, instrument);
+            var (instrumentID, portfolioCode) = CreatePortfolioAndInstrument(scope, instrument, recipeCode);
 
             // UPSERT market data sufficient to price the instrument depending on the model.
             UpsertMarketDataForInstrument(instrument, model, instrumentID, scope);
-
-            // CREATE recipe to price the portfolio with
-            var recipeCode = CreateAndUpsertRecipe(scope, model);
 
             // CREATE valuation request
             var valuationRequest = TestDataUtilities.CreateValuationRequest(scope, portfolioCode, recipeCode, TestDataUtilities.EffectiveAt);

@@ -51,19 +51,21 @@ namespace Lusid.Instruments.Examples.Utilities
         /// <summary>
         /// Helper method to construct CreateTransactionPortfolioRequest to be used in ITransactionPortfoliosApi
         /// </summary>
-        public static CreateTransactionPortfolioRequest BuildTransactionPortfolioRequest(DateTimeOffset? effectiveAt = null)
+        public static CreateTransactionPortfolioRequest BuildTransactionPortfolioRequest(DateTimeOffset? effectiveAt = null, ResourceId recipeId = null)
         {
             var portfolioCode = Guid.NewGuid().ToString();
             //    Effective date of the portfolio, this is the date the portfolio was created and became live.  All dates/times
             //    must be supplied in UTC
             var effectiveDate = effectiveAt  ?? new DateTimeOffset(2018, 1, 1, 0, 0, 0, TimeSpan.Zero);
+            var instrumentEventConfig = new InstrumentEventConfiguration(recipeId: recipeId);
 
             //    Details of the new portfolio to be created, created here with the minimum set of mandatory fields
             var request = new CreateTransactionPortfolioRequest(
                 code: portfolioCode,
                 displayName: $"Portfolio-{portfolioCode}",
                 baseCurrency: "GBP",
-                created: effectiveDate
+                created: effectiveDate,
+                instrumentEventConfiguration: instrumentEventConfig
             );
             return request;
         }
