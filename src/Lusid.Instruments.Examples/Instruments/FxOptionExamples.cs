@@ -78,14 +78,14 @@ namespace Lusid.Instruments.Examples.Instruments
             
             var scope = Guid.NewGuid().ToString();
 
+            // CREATE recipe to price the portfolio with
+            var recipeCode = CreateAndUpsertRecipe(scope, ModelSelection.ModelEnum.BlackScholes);
+
             // CREATE portfolio and add instrument to the portfolio
-            var (instrumentID, portfolioCode) = CreatePortfolioAndInstrument(scope, fxOption);
+            var (instrumentID, portfolioCode) = CreatePortfolioAndInstrument(scope, fxOption, recipeCode);
 
             // UPSERT market data sufficient to price the instrument depending on the model.
             CreateAndUpsertMarketDataToLusid(scope, ModelSelection.ModelEnum.BlackScholes, fxOption);
-
-            // CREATE recipe to price the portfolio with
-            var recipeCode = CreateAndUpsertRecipe(scope, ModelSelection.ModelEnum.BlackScholes);
 
             // CREATE valuation request
             var valuationRequest = TestDataUtilities.CreateValuationRequest(
@@ -223,15 +223,15 @@ namespace Lusid.Instruments.Examples.Instruments
             var windowStart = option.StartDate.AddMonths(-1);
             var windowEnd = option.OptionSettlementDate.AddMonths(1);
 
-            // CREATE portfolio and add instrument to the portfolio
+            // CREATE recipe to price the portfolio with
             var scope = Guid.NewGuid().ToString();
-            var (instrumentID, portfolioCode) = CreatePortfolioAndInstrument(scope, option);
+            var recipeCode = CreateAndUpsertRecipe(scope, model, windowValuationOnInstrumentStartEnd: true);
+
+            // CREATE portfolio and add instrument to the portfolio
+            var (instrumentID, portfolioCode) = CreatePortfolioAndInstrument(scope, option, recipeCode);
 
             // UPSERT option to portfolio and populating stores with required market data.
             CreateAndUpsertMarketDataToLusid(scope, model, option);
-
-            // CREATE recipe to price the portfolio with
-            var recipeCode = CreateAndUpsertRecipe(scope, model, windowValuationOnInstrumentStartEnd: true);
 
             // GET all upsertable cashflows (transactions) for the option
             // For this test, we will be performing valuations around the option settlement date, so we upsert some spot rates for the underlying FX rates.

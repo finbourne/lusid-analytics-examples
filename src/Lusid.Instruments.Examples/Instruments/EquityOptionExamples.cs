@@ -210,15 +210,15 @@ namespace Lusid.Instruments.Examples.Instruments
             var windowStart = equityOption.StartDate.AddMonths(-1);
             var windowEnd = equityOption.OptionSettlementDate.AddMonths(1);
 
-            // CREATE portfolio and add instrument to the portfolio
+            // CREATE recipe to price the portfolio with
             var scope = Guid.NewGuid().ToString();
-            var (instrumentID, portfolioCode) = CreatePortfolioAndInstrument(scope, equityOption);
+            var recipeCode = CreateAndUpsertRecipe(scope, model, windowValuationOnInstrumentStartEnd: true);
+
+            // CREATE portfolio and add instrument to the portfolio
+            var (instrumentID, portfolioCode) = CreatePortfolioAndInstrument(scope, equityOption, recipeCode);
 
             // UPSERT EquityOption to portfolio and populating stores with required market data.
             CreateAndUpsertMarketDataToLusid(scope, model, equityOption);
-
-            // CREATE recipe to price the portfolio with
-            var recipeCode = CreateAndUpsertRecipe(scope, model, windowValuationOnInstrumentStartEnd: true);
 
             // GET all upsertable cashflows (transactions) for the EquityOption
             var effectiveAt = equityOption.OptionSettlementDate;
@@ -366,15 +366,15 @@ namespace Lusid.Instruments.Examples.Instruments
             var windowStart = equityOption.StartDate.AddMonths(-1);
             var windowEnd = equityOption.OptionSettlementDate.AddMonths(1);
 
-            // CREATE portfolio and add instrument to the portfolio
+            // CREATE recipe to price the portfolio with
             var scope = Guid.NewGuid().ToString();
-            var (instrumentID, portfolioCode) = CreatePortfolioAndInstrument(scope, equityOption);
+            var recipeCode = CreateAndUpsertRecipe(scope, model, windowValuationOnInstrumentStartEnd: true);
+
+            // CREATE portfolio and add instrument to the portfolio
+            var (instrumentID, portfolioCode) = CreatePortfolioAndInstrument(scope, equityOption, recipeCode);
 
             // UPSERT EquityOption to portfolio and populating stores with required market data.
             CreateAndUpsertMarketDataToLusid(scope, model, equityOption);
-
-            // CREATE recipe to price the portfolio with
-            var recipeCode = CreateAndUpsertRecipe(scope, model, windowValuationOnInstrumentStartEnd: true);
 
             // GET all upsertable cashflows (transactions) for the EquityOption
             var effectiveAt = equityOption.OptionSettlementDate;

@@ -169,15 +169,15 @@ namespace Lusid.Instruments.Examples.Instruments
             var windowStart = swaption.StartDate.AddMonths(-1);
             var windowEnd = swaption.Swap.MaturityDate.AddMonths(1);
 
-            // CREATE portfolio and add instrument to the portfolio
+            // CREATE recipe to price the portfolio
             var scope = Guid.NewGuid().ToString();
-            var (instrumentID, portfolioCode) = CreatePortfolioAndInstrument(scope, swaption);
+            var recipeCode = CreateAndUpsertRecipe(scope, model, windowValuationOnInstrumentStartEnd: true);
+
+            // CREATE portfolio and add instrument to the portfolio
+            var (instrumentID, portfolioCode) = CreatePortfolioAndInstrument(scope, swaption, recipeCode);
 
             // UPSERT to portfolio and populating stores with required market data.
             CreateAndUpsertMarketDataToLusid(scope, model, swaption);
-
-            // CREATE recipe to price the portfolio
-            var recipeCode = CreateAndUpsertRecipe(scope, model, windowValuationOnInstrumentStartEnd: true);
 
             // GET all upsertable cashflows (transactions)
             var effectiveAt = swaption.Swap.StartDate;
