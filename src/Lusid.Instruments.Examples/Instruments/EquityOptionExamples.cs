@@ -402,8 +402,7 @@ namespace Lusid.Instruments.Examples.Instruments
                 portfolioCode,
                 recipeCode,
                 effectiveAt: cashFlowDate.AddDays(5),
-                effectiveFrom: cashFlowDate.AddDays(-5),
-                additionalRequestsKeys: new List<string>{"Analytic/default/OnExercise"});
+                effectiveFrom: cashFlowDate.AddDays(-5));
 
             // CALL GetValuation before upserting back the cashflows. We check
             // (1) there is no cash holdings in the portfolio prior to expiration
@@ -424,13 +423,6 @@ namespace Lusid.Instruments.Examples.Instruments
                 scope,
                 portfolioCode,
                 PortfolioCashFlows.MapToCashFlowTransactionRequest(upsertCashFlowTransactions));
-
-            // TODO: Cashflow endpoints returns cashflows, not instruments. As such, in terms of lifecycle management,
-            // TODO: it is not immediate that have a hold of the underlying that we upsert/book into lusid.
-            // TODO: Consequently, in the valuation we request OnExercise to get the underlying.
-            var jObject =(JObject) valuationBeforeAndAfterExpirationEquityOption.Data.First()["Analytic/default/OnExercise"];
-            var underlying = jObject.ToObject<Equity>();
-            Assert.That(underlying is null, Is.False);
 
             // NOTE that while we have exposed Equity, one is not able to book it.
             // Hence the below code is to extract the equity option underlying and book the equity as one would do "usually". (see other examples)
