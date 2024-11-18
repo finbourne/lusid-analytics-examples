@@ -208,7 +208,7 @@ namespace Lusid.Instruments.Examples.Instruments
 
             // CREATE wide enough window to pick up all cashflows associated to the EquityOption
             var windowStart = equityOption.StartDate.AddMonths(-1);
-            var windowEnd = equityOption.OptionSettlementDate.AddMonths(1);
+            var windowEnd = equityOption.OptionSettlementDate?.AddMonths(1);
 
             // CREATE portfolio and add instrument to the portfolio
             var scope = Guid.NewGuid().ToString();
@@ -257,7 +257,7 @@ namespace Lusid.Instruments.Examples.Instruments
                 equityOption.DomCcy);
             TestDataUtilities.CheckNonZeroPvBeforeMaturityAndZeroAfter(
                 valuationBeforeAndAfterExpirationEquityOption,
-                equityOption.OptionSettlementDate);
+                equityOption.OptionSettlementDate.Value);
 
             // UPSERT the cashflows back into LUSID. We first populate the cashflow transactions with unique IDs.
             var upsertCashFlowTransactions = PortfolioCashFlows.PopulateCashFlowTransactionWithUniqueIds(
@@ -364,7 +364,7 @@ namespace Lusid.Instruments.Examples.Instruments
 
             // CREATE wide enough window to pick up all cashflows associated to the EquityOption
             var windowStart = equityOption.StartDate.AddMonths(-1);
-            var windowEnd = equityOption.OptionSettlementDate.AddMonths(1);
+            var windowEnd = equityOption.OptionSettlementDate?.AddMonths(1);
 
             // CREATE portfolio and add instrument to the portfolio
             var scope = Guid.NewGuid().ToString();
@@ -413,7 +413,7 @@ namespace Lusid.Instruments.Examples.Instruments
                 equityOption.DomCcy);
             TestDataUtilities.CheckNonZeroPvBeforeMaturityAndZeroAfter(
                 valuationBeforeAndAfterExpirationEquityOption,
-                equityOption.OptionSettlementDate);
+                equityOption.OptionSettlementDate.Value);
 
             // UPSERT the cashflows back into LUSID. We first populate the cashflow transactions with unique IDs.
             var upsertCashFlowTransactions = PortfolioCashFlows.PopulateCashFlowTransactionWithUniqueIds(
