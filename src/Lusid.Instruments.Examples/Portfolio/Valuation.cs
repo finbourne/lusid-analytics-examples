@@ -280,9 +280,14 @@ namespace Lusid.Instruments.Examples.Portfolio
         [TestCase(nameof(InterestRateSwap))]
         public void TestDemonstratingTheValuationOfInstruments(string instrumentName)
         {
-            // CREATE a portfolio with instrument
+            // CREATE and upsert recipe specifying discount pricing model
             var scope = Guid.NewGuid().ToString();
-            var portfolioRequest = TestDataUtilities.BuildTransactionPortfolioRequest();
+            var discountingRecipeCode = "DiscountingRecipe";
+            CreateAndUpsertRecipe(discountingRecipeCode, scope, ModelSelection.ModelEnum.Discounting);
+
+            // CREATE a portfolio with instrument
+            var recipeId = new ResourceId(scope, discountingRecipeCode);
+            var portfolioRequest = TestDataUtilities.BuildTransactionPortfolioRequest(recipeId: recipeId);
             var portfolio = _transactionPortfoliosApi.CreatePortfolio(scope, portfolioRequest);
             Assert.That(portfolio?.Id.Code, Is.EqualTo(portfolioRequest.Code));
             LusidInstrument instrument = InstrumentExamples.GetExampleInstrument(instrumentName);
@@ -294,10 +299,6 @@ namespace Lusid.Instruments.Examples.Portfolio
                 TestDataUtilities.EffectiveAt,
                 TestDataUtilities.EffectiveAt,
                 new List<LusidInstrument> {instrument});
-
-            // CREATE and upsert recipe specifying discount pricing model
-            var discountingRecipeCode = "DiscountingRecipe";
-            CreateAndUpsertRecipe(discountingRecipeCode, scope, ModelSelection.ModelEnum.Discounting);
 
             // CREATE valuation request
             var valuationRequest = TestDataUtilities.CreateValuationRequest(
@@ -395,8 +396,13 @@ namespace Lusid.Instruments.Examples.Portfolio
         [Test]
         public void SingleDateValuationOfAnInstrumentPortfolio()
         {
+            // CREATE and upsert recipe specifying discount pricing model
+            var discountingRecipeCode = "DiscountingRecipe";
+            CreateAndUpsertRecipe(discountingRecipeCode, TestDataUtilities.TutorialScope, ModelSelection.ModelEnum.Discounting);
+
             // CREATE a portfolio
-            var portfolioRequest = TestDataUtilities.BuildTransactionPortfolioRequest();
+            var recipeId = new ResourceId(TestDataUtilities.TutorialScope, discountingRecipeCode);
+            var portfolioRequest = TestDataUtilities.BuildTransactionPortfolioRequest(recipeId: recipeId);
             var portfolio = _transactionPortfoliosApi.CreatePortfolio(TestDataUtilities.TutorialScope, portfolioRequest);
             Assert.That(portfolio?.Id.Code, Is.EqualTo(portfolioRequest.Code));
             // CREATE our instrument set
@@ -415,10 +421,6 @@ namespace Lusid.Instruments.Examples.Portfolio
                 TestDataUtilities.EffectiveAt,
                 TestDataUtilities.EffectiveAt,
                 instruments);
-
-            // CREATE and upsert recipe specifying discount pricing model
-            var discountingRecipeCode = "DiscountingRecipe";
-            CreateAndUpsertRecipe(discountingRecipeCode, TestDataUtilities.TutorialScope, ModelSelection.ModelEnum.Discounting);
 
             var valuationRequest = TestDataUtilities.CreateValuationRequest(
                 TestDataUtilities.TutorialScope,
