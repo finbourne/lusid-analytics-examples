@@ -60,7 +60,7 @@ namespace Lusid.Instruments.Examples.Instruments
             ValidateUpsertInstrumentResponse(upsertResponse);
 
             // CAN NOW QUERY FROM LUSID
-            GetInstrumentsResponse getResponse = _instrumentsApi.GetInstruments("ClientInternal", new List<string> { uniqueId }, upsertResponse.Values.First().Value._Version.AsAtDate);
+            GetInstrumentsResponse getResponse = _instrumentsApi.GetInstruments("ClientInternal", new List<string> { uniqueId }, upsertResponse.Values.First().Value.VarVersion.AsAtDate);
             ValidateInstrumentResponse(getResponse ,uniqueId);
             
             // CHECK contents
